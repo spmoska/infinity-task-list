@@ -34,6 +34,7 @@ const TasksPage = () => {
                                 icon={<EditOutlined/>}
                             >Добавить задачу</Button>,
                             <Button
+                                onClick={() => tasks.deleteSelectedTasks()}
                                 icon={<DeleteOutlined/>}
                                 danger
                                 type='primary'

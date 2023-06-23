@@ -5,6 +5,7 @@ import tasks from "../../store/Tasks";
 import style from './TaskListItem.module.scss'
 import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import {observer} from "mobx-react-lite";
 
 const TaskListItem: FC<ITaskListItemProps> = ({task, childrenStyle}) => {
     const [childrenList, setChildrenList] = useState<ITask[]>();
@@ -13,15 +14,18 @@ const TaskListItem: FC<ITaskListItemProps> = ({task, childrenStyle}) => {
         setChildrenList(tasks.getChildrenTaskList(task.id))
     }, [tasks.tasks])
 
-    const onCheck = () => {
-
+    const onCheck = (e: CheckboxChangeEvent) => {
+        if (e.target.checked) tasks.selectTask(task.id)
+        else tasks.deselectTask(task.id);
     }
 
     return (
         <div style={childrenStyle}>
             <div className={style.task}>
                 <p>{task.name}</p>
-                <Checkbox onChange={onCheck}></Checkbox>
+                <Checkbox onChange={onCheck}
+                          checked={!!tasks.selectedTasks.find(selectedTask => selectedTask.id === task.id)}
+                ></Checkbox>
             </div>
             <>
                 {
@@ -37,4 +41,4 @@ const TaskListItem: FC<ITaskListItemProps> = ({task, childrenStyle}) => {
     );
 };
 
-export default TaskListItem;
+export default observer(TaskListItem);

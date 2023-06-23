@@ -7,7 +7,39 @@ class Tasks {
     };
 
     tasks: ITask[] = [
-        
+        {
+            id: 1,
+            name: '1',
+            description: '1',
+        },
+        {
+            id: 2,
+            name: '1.1',
+            description: '1',
+            parentTaskId: 1
+        },
+        {
+            id: 3,
+            name: '1.1.1',
+            description: '1',
+            parentTaskId: 2
+        },
+        {
+            id: 4,
+            name: '2',
+            description: '1',
+        },
+        {
+            id: 5,
+            name: '3',
+            description: '1',
+        },
+        {
+            id: 6,
+            name: '3.1',
+            description: '1',
+            parentTaskId: 5
+        }
     ] as ITask[];
     setTasks = (data: ITask[]) => this.tasks = data;
 
@@ -33,8 +65,32 @@ class Tasks {
         return this.tasks
     }
 
+    selectTask = (taskId: number) => {
+        const selectedTask = this.tasks.find(task => task.id === taskId)
+        const childrenTasks = this.tasks.filter(task => task.parentTaskId === taskId)
+        this.setSelectedTask([...this.selectedTasks, selectedTask!])
+
+        childrenTasks.forEach(task => this.selectTask(task.id))
+
+        return this.selectedTasks
+    }
+
+    deselectTask = (taskId: number) => {
+        this.setSelectedTask(this.selectedTasks.filter(task => task.id !== taskId))
+
+        return this.selectedTasks
+    }
+
+    deleteSelectedTasks = () => {
+        this.setTasks(this.tasks.filter(task => !this.selectedTasks.includes(task)))
+
+        return this.tasks
+    }
+
     getTask = (taskId: number) => {
         this.setTask(this.tasks.filter(task => task.id === taskId)[0])
+
+        return this.task
     }
 }
 
