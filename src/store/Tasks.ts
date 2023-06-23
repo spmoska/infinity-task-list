@@ -6,41 +6,7 @@ class Tasks {
         makeAutoObservable(this);
     };
 
-    tasks: ITask[] = [
-        {
-            id: 1,
-            name: '1',
-            description: '1',
-        },
-        {
-            id: 2,
-            name: '1.1',
-            description: '1',
-            parentTaskId: 1
-        },
-        {
-            id: 3,
-            name: '1.1.1',
-            description: '1',
-            parentTaskId: 2
-        },
-        {
-            id: 4,
-            name: '2',
-            description: '1',
-        },
-        {
-            id: 5,
-            name: '3',
-            description: '1',
-        },
-        {
-            id: 6,
-            name: '3.1',
-            description: '1',
-            parentTaskId: 5
-        }
-    ] as ITask[];
+    tasks: ITask[] = [] as ITask[];
     setTasks = (data: ITask[]) => this.tasks = data;
 
     selectedTasks: ITask[] = [] as ITask[];
@@ -61,6 +27,8 @@ class Tasks {
                 description: data.description,
                 parentTaskId: data.parentTaskId
             }])
+
+        this.updateLocalStorage();
 
         return this.tasks
     }
@@ -86,6 +54,8 @@ class Tasks {
 
         if (!this.tasks.includes(this.task)) this.setTask({} as ITask)
 
+        this.updateLocalStorage()
+
         return this.tasks
     }
 
@@ -93,6 +63,15 @@ class Tasks {
         this.setTask(this.tasks.filter(task => task.id === taskId)[0])
 
         return this.task
+    }
+
+    getTasksFromLocalStorage = () => {
+        if (localStorage.getItem('tasks') !== null)
+            this.setTasks(JSON.parse(localStorage.getItem('tasks')!))
+    }
+
+    updateLocalStorage = () => {
+        localStorage.setItem('tasks', JSON.stringify(this.tasks))
     }
 }
 

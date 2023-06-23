@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useState} from "react";
 import {ITaskForm} from "../../type/task";
 import tasks from "../../store/Tasks";
@@ -22,6 +22,10 @@ const TasksPage = () => {
         }
         setLoading(false);
     }
+
+    useEffect(() => {
+        tasks.getTasksFromLocalStorage();
+    }, [])
 
     return (
         <>
