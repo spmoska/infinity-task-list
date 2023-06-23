@@ -46,7 +46,7 @@ class Tasks {
     selectedTasks: ITask[] = [] as ITask[];
     setSelectedTask = (data: ITask[]) => this.selectedTasks = data
 
-    task: ITask | undefined = {} as ITask | undefined;
+    task: ITask = {} as ITask;
     setTask = (data: ITask) => this.task = data;
 
     getChildrenTaskList = (parentTaskId: number) => {
@@ -83,6 +83,8 @@ class Tasks {
 
     deleteSelectedTasks = () => {
         this.setTasks(this.tasks.filter(task => !this.selectedTasks.includes(task)))
+
+        if (!this.tasks.includes(this.task)) this.setTask({} as ITask)
 
         return this.tasks
     }

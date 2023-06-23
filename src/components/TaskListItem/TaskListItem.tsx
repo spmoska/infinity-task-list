@@ -21,7 +21,7 @@ const TaskListItem: FC<ITaskListItemProps> = ({task, childrenStyle}) => {
 
     return (
         <div style={childrenStyle}>
-            <div className={style.task}>
+            <div className={style.task} onClick={() => tasks.getTask(task.id)}>
                 <p>{task.name}</p>
                 <Checkbox onChange={onCheck}
                           checked={!!tasks.selectedTasks.find(selectedTask => selectedTask.id === task.id)}

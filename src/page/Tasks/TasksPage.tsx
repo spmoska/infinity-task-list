@@ -2,7 +2,7 @@ import React from 'react';
 import {useState} from "react";
 import {ITaskForm} from "../../type/task";
 import tasks from "../../store/Tasks";
-import {Button, Card, Col, message, Row} from "antd";
+import {Button, Card, Col, message, Row, Empty} from "antd";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import TaskModal from "../../components/TaskModal/TaskModal";
 import {observer} from "mobx-react-lite";
@@ -49,9 +49,18 @@ const TasksPage = () => {
                         </Card>
                     </Col>
                     <Col xs={24} lg={12}>
-                        <Card title='Задача №1'>
-                        </Card>
+                        {
+                            tasks.task
+                            ?
+                            <Card title={tasks.task.name}>
+                                {tasks.task.description}
+                            </Card>
+                            :
+                            <Empty />
+                        }
                     </Col>
+
+
                 </Row>
             </Card>
 
