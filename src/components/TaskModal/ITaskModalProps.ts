@@ -4,6 +4,6 @@ export interface ITaskModalProps {
     open: boolean,
     loading: boolean,
     onCancel: () => void,
-    onFinish: () => void,
+    onFinish: (data: ITaskForm) => void,
     initialValues?: ITaskForm
 }

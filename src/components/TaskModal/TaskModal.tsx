@@ -25,7 +25,7 @@ const TaskModal: FC<ITaskModalProps> = ({open, onCancel, initialValues, onFinish
                 label: task.name
             }
         }))
-    }, [])
+    }, [tasks.tasks])
 
     return (
         <Modal
@@ -43,7 +43,7 @@ const TaskModal: FC<ITaskModalProps> = ({open, onCancel, initialValues, onFinish
                 <Form.Item name='description' label='Описание'>
                     <TextArea placeholder='Описание задачи'/>
                 </Form.Item>
-                <Form.Item name='parentTask' label='Задача верхнего уровня'>
+                <Form.Item name='parentTaskId' label='Задача верхнего уровня'>
                     <Select
                         showSearch
                         placeholder="Задача верхнего уровня"

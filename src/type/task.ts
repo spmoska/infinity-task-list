@@ -1,12 +1,12 @@
 export interface ITask {
     id: number,
     name: string,
-    description: string,
-    children?: ITask[]
+    description?: string,
+    parentTaskId?: number
 }
 
 export interface ITaskForm {
     name: string,
     description?: string,
-    parentTask?: number
+    parentTaskId?: number
 }
