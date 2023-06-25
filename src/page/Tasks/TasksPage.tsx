@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useState} from "react";
 import {ITaskForm} from "../../type/task";
 import tasks from "../../store/Tasks";
-import {Button, Card, Col, message, Row, Empty} from "antd";
+import {Button, Card, Col, message, Row, Empty, Tooltip} from "antd";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import TaskModal from "../../components/TaskModal/TaskModal";
 import {observer} from "mobx-react-lite";
@@ -29,20 +29,25 @@ const TasksPage = () => {
 
     return (
         <>
-            <Card style={{width: '100%', maxHeight: '80vh', margin: '20px'}}>
+            <Card style={{width: '100%', maxHeight: '80vh', margin: '20px', overflow: "auto"}}>
                 <Row gutter={[20, 20]}>
                     <Col xs={24} lg={12}>
-                        <Card title='Список задач' actions={[
-                            <Button
-                                onClick={() => setCreateModalOpen(true)}
-                                icon={<EditOutlined/>}
-                            >Добавить задачу</Button>,
+                        <Card title='Список задач' extra={[
+                            <Tooltip title='Добавить задачу'>
+                                <Button
+                                    style={{marginRight: 10}}
+                                    onClick={() => setCreateModalOpen(true)}
+                                    icon={<EditOutlined/>}
+                                ></Button>
+                            </Tooltip>,
+                            <Tooltip title='Удалить задачу'>
                             <Button
                                 onClick={() => tasks.deleteSelectedTasks()}
                                 icon={<DeleteOutlined/>}
                                 danger
                                 type='primary'
-                            >Удалить выбранные</Button>
+                            ></Button>
+                            </Tooltip>
                         ]}
                         >
                             {
@@ -54,17 +59,17 @@ const TasksPage = () => {
                     </Col>
                     <Col xs={24} lg={12}>
                         {
-                            tasks.task
-                            ?
-                            <Card title={tasks.task.name}>
-                                {tasks.task.description}
-                            </Card>
-                            :
-                            <Empty />
+                            Object.keys(tasks.task).length !== 0
+                                ?
+                                <Card title={tasks.task.name}>
+                                    {tasks.task.description}
+                                </Card>
+                                :
+                                <Card>
+                                    <Empty description='Выберите задачу'/>
+                                </Card>
                         }
                     </Col>
-
-
                 </Row>
             </Card>
 
