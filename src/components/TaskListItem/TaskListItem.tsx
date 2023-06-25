@@ -22,27 +22,26 @@ const TaskListItem: FC<ITaskListItemProps> = ({task, childrenStyle}) => {
     }
 
     const taskClickHandler = () => {
-        if (!childrenOpen) {
-            try {
-                tasks.getTask(task.id);
-                setChildrenOpen(true);
-            } catch (e) {
-                message.error('Ошибка загрузки задач!');
-            }
-        } else setChildrenOpen(false);
+        try {
+            tasks.getTask(task.id);
+        } catch (e) {
+            message.error('Ошибка загрузки задач!');
+        }
     }
 
     return (
         <div style={childrenStyle}>
             <div className={style.list__item}>
-                <div className={style.task} onClick={taskClickHandler}>
+                <div className={style.task}>
                     {
                         childrenList.length > 0
                             ?
-                            <div className={childrenOpen ? style.arrow__open : style.arrow__close}></div>
+                            <div className={childrenOpen ? style.arrow__open : style.arrow__close}
+                                 onClick={() => setChildrenOpen(prev => !prev)}
+                            ></div>
                             : null
                     }
-                    <div className={style.task__name}>{task.name}</div>
+                    <div className={style.task__name} onClick={taskClickHandler}>{task.name}</div>
                 </div>
                 <Checkbox onChange={onCheck}
                           checked={!!tasks.selectedTasks.find(selectedTask => selectedTask.id === task.id)}
