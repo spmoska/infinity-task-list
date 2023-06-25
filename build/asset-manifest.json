@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/infinity-task-list/static/css/main.e386878f.css",
+    "main.js": "/infinity-task-list/static/js/main.dd33bd49.js",
+    "index.html": "/infinity-task-list/index.html",
+    "main.e386878f.css.map": "/infinity-task-list/static/css/main.e386878f.css.map",
+    "main.dd33bd49.js.map": "/infinity-task-list/static/js/main.dd33bd49.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e386878f.css",
+    "static/js/main.dd33bd49.js"
+  ]
+}
