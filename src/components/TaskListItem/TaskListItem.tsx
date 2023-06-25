@@ -13,6 +13,7 @@ const TaskListItem: FC<ITaskListItemProps> = ({task, childrenStyle}) => {
 
     useEffect(() => {
         setChildrenList(tasks.getChildrenTaskList(task.id))
+        // eslint-disable-next-line
     }, [tasks.tasks])
 
     const onCheck = (e: CheckboxChangeEvent) => {
@@ -33,14 +34,16 @@ const TaskListItem: FC<ITaskListItemProps> = ({task, childrenStyle}) => {
 
     return (
         <div style={childrenStyle}>
-            <div className={style.task} onClick={taskClickHandler}>
-                {
-                    childrenList.length > 0
-                        ?
-                        <div className={childrenOpen ? style.arrow__open : style.arrow__close}></div>
-                        : null
-                }
-                <p className={style.task__name}>{task.name}</p>
+            <div className={style.list__item}>
+                <div className={style.task} onClick={taskClickHandler}>
+                    {
+                        childrenList.length > 0
+                            ?
+                            <div className={childrenOpen ? style.arrow__open : style.arrow__close}></div>
+                            : null
+                    }
+                    <div className={style.task__name}>{task.name}</div>
+                </div>
                 <Checkbox onChange={onCheck}
                           checked={!!tasks.selectedTasks.find(selectedTask => selectedTask.id === task.id)}
                 ></Checkbox>
@@ -50,7 +53,8 @@ const TaskListItem: FC<ITaskListItemProps> = ({task, childrenStyle}) => {
                     childrenList.length > 0 && childrenOpen
                         ?
                         childrenList.map(childrenTask =>
-                            <TaskListItem task={childrenTask} childrenStyle={{margin: '5px 0 5px 10px'}} key={childrenTask.id}/>
+                            <TaskListItem task={childrenTask} childrenStyle={{margin: '5px 0 5px 10px'}}
+                                          key={childrenTask.id}/>
                         )
                         : null
                 }

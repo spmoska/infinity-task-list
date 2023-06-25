@@ -25,6 +25,7 @@ const TaskModal: FC<ITaskModalProps> = ({open, onCancel, initialValues, onFinish
                 label: task.name
             }
         }))
+        // eslint-disable-next-line
     }, [tasks.tasks])
 
     return (
