@@ -15,4 +15,4 @@ To get the frontend running locally:
 
 ## Demo
 This application is running on GitHub Pages. <br>
-Link: https://1aga1.github.io/infinity-task-list/
+Link: https://spmoska.github.io/infinity-task-list/
